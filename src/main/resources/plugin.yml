@@ -1,0 +1,3 @@
+name: Skyblock
+version: '${project.version}'
+main: me.s0ftbytes.skyblock.Skyblock
