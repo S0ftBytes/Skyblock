@@ -16,10 +16,6 @@ public class SkyblockPlayer {
         return player;
     }
 
-    public void setPlayer(Player player){
-        this.player = player;
-    }
-
     public String getName(){
         return player.getName();
     }
