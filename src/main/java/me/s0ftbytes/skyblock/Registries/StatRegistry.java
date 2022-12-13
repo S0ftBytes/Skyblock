@@ -1,6 +1,6 @@
-package me.s0ftbytes.playerstats.Registries;
+package me.s0ftbytes.skyblock.Registries;
 
-import me.s0ftbytes.playerstats.Stats.Stat;
+import me.s0ftbytes.skyblock.Stats.Stat;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,10 +1,11 @@
-package me.s0ftbytes.playerstats.Stats;
+package me.s0ftbytes.skyblock.Stats;
 
-import me.s0ftbytes.core.SkyblockPlayer;
+import me.s0ftbytes.skyblock.SkyblockPlayer;
 
 public interface Stat {
         String getID();
         String getName();
         String getDisplay(Number value);
+        Number getDefaultValue();
         void applyStat(SkyblockPlayer player, Number value);
 }

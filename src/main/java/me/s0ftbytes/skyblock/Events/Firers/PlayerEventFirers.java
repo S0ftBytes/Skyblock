@@ -32,6 +32,15 @@ public class PlayerEventFirers implements Listener {
                     Bukkit.getPluginManager().callEvent(sbPlayerJoinEvt);
                 });
 
+        Events.subscribe(SkyblockPlayerJoinEvent.class)
+                .handler(e -> {
+                    SkyblockPlayer skyblockPlayer = e.getSkyblockPlayer();
+                    Player player = skyblockPlayer.getBukkitPlayer();
+
+                    System.out.println("SkyblockPlayerJoinEvent fired for " + skyblockPlayer.getStats());
+                    player.sendMessage("Welcome to the server, " + player.getName() + "!");
+                });
+
     }
 
     public void registerPlayerLeaveFirer(){

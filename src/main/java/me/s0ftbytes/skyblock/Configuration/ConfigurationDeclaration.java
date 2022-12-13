@@ -2,23 +2,18 @@ package me.s0ftbytes.skyblock.Configuration;
 
 import me.s0ftbytes.skyblock.Skyblock;
 
-public class ConfigurationManager {
+public class ConfigurationDeclaration {
+
+    private static ConfigurationFile statsConfig;
 
     private Skyblock instance;
-    public ConfigurationManager(Skyblock skyblock){
+    public ConfigurationDeclaration(Skyblock skyblock){
         this.instance = skyblock;
     }
 
-    public void createConfigurationFiles(){
-        createStatsConfigurationFile();
-    }
+    public static ConfigurationFile getStatsConfiguration(){
+        if(statsConfig == null) statsConfig = new ConfigurationFile("stats");
 
-    public void createStatsConfigurationFile(){
-        ConfigurationFile statsConfig = new ConfigurationFile("stats");
-
-        statsConfig.create();
-        statsConfig.load();
-
-        instance.getRegistryManager().getStatRegistry().getStats();
+        return statsConfig;
     }
 }
