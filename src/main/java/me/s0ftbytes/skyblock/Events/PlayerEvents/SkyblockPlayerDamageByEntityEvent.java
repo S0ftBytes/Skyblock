@@ -2,17 +2,18 @@ package me.s0ftbytes.skyblock.Events.PlayerEvents;
 
 import me.s0ftbytes.skyblock.Enums.DamageCause;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
-import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.entity.Entity;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-public class SkyblockPlayerDamageEvent extends SkyblockPlayerEvent {
+public class SkyblockPlayerDamageByEntityEvent extends SkyblockPlayerEvent {
 
     private double damage;
     private double finalDamage;
     private DamageCause cause;
     private SkyblockPlayer player;
-    private EntityDamageEvent bukkitEvent;
+    private EntityDamageByEntityEvent bukkitEvent;
 
-    public SkyblockPlayerDamageEvent(SkyblockPlayer player, double damage, double finalDamage, DamageCause cause, EntityDamageEvent event) {
+    public SkyblockPlayerDamageByEntityEvent(SkyblockPlayer player, double damage, double finalDamage, DamageCause cause, EntityDamageByEntityEvent event) {
         super(player);
 
         this.player = player;
@@ -44,7 +45,11 @@ public class SkyblockPlayerDamageEvent extends SkyblockPlayerEvent {
     }
 
     public double getNewHealth() {
-        return player.getStat("health").intValue() - finalDamage;
+        return player.getStat("health").intValue() - getFinalDamage();
+    }
+
+    public Entity getEntity() {
+        return bukkitEvent.getEntity();
     }
 
     @Override
@@ -52,4 +57,6 @@ public class SkyblockPlayerDamageEvent extends SkyblockPlayerEvent {
         super.setCancelled(cancelled);
         bukkitEvent.setCancelled(cancelled);
     }
+
+
 }

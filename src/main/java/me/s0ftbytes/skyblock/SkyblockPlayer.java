@@ -4,6 +4,7 @@ import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerStatUpdateEvent;
 import me.s0ftbytes.skyblock.Registries.StatRegistry;
 import me.s0ftbytes.skyblock.Stats.Stat;
 import me.s0ftbytes.skyblock.Utils.PlayerUtils;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -87,6 +88,10 @@ public class SkyblockPlayer {
 
     public HashMap<String, Number> getStats(){
         return stats;
+    }
+
+    public Location location() {
+        return getBukkitPlayer().getLocation();
     }
 
 }

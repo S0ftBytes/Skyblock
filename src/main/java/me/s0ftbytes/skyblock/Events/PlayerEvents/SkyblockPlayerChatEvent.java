@@ -25,4 +25,10 @@ public class SkyblockPlayerChatEvent extends SkyblockPlayerEvent {
     public AsyncPlayerChatEvent getBukkitEvent() {
         return bukkitEvent;
     }
+
+    @Override
+    public void setCancelled(boolean cancelled) {
+        super.setCancelled(cancelled);
+        bukkitEvent.setCancelled(cancelled);
+    }
 }

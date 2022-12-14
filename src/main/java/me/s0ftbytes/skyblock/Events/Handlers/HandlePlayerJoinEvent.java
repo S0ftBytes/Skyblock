@@ -16,9 +16,9 @@ public class HandlePlayerJoinEvent {
         Events.subscribe(SkyblockPlayerJoinEvent.class)
                 .handler(e -> {
                     HashMap<String, Number> defaults =  StatRegistry.getInstance().getStatDefaults();
-                    e.getSkyblockPlayer().setStats(defaults);
+                    e.getPlayer().setStats(defaults);
 
-                    System.out.println("SkyblockPlayerJoinEvent fired for " + e.getSkyblockPlayer().getStats());
+                    System.out.println("SkyblockPlayerJoinEvent fired for " + e.getPlayer().getStats());
                 });
     }
 }

@@ -49,4 +49,8 @@ public abstract class SkyblockPlayerEvent extends Event implements Cancellable {
             getServer().getPluginManager().callEvent(this);
         }
 
+        public SkyblockPlayer getPlayer() {
+            return player;
+        }
+
 }

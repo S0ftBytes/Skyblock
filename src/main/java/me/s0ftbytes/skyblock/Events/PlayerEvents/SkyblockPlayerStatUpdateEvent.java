@@ -34,8 +34,4 @@ public class SkyblockPlayerStatUpdateEvent extends SkyblockPlayerEvent {
     public void setNewValue(Number newValue) {
         this.newValue = newValue;
     }
-
-    public SkyblockPlayer getPlayer() {
-        return player;
-    }
 }

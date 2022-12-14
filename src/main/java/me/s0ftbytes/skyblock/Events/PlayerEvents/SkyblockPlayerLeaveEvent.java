@@ -22,8 +22,4 @@ public class SkyblockPlayerLeaveEvent extends SkyblockPlayerEvent {
         return bukkitEvent;
     }
 
-    public SkyblockPlayer getSkyblockPlayer(){
-        return skyblockPlayer;
-    }
-
 }

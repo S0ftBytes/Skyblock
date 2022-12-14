@@ -1,24 +1,30 @@
 package me.s0ftbytes.skyblock.Events.Firers;
 
 import me.lucko.helper.Events;
-import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerChatEvent;
-import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerJoinEvent;
-import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerLeaveEvent;
+import me.s0ftbytes.skyblock.Enums.DamageCause;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.*;
 import me.s0ftbytes.skyblock.Registries.PlayerRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerEventFirers implements Listener {
 
+    private PlayerRegistry playerRegistry;
+
     public PlayerEventFirers(){
+        playerRegistry = PlayerRegistry.getInstance();
+
         registerPlayerJoinFirer();
         registerPlayerLeaveFirer();
         registerPlayerChatFirer();
+        registerPlayerDeathFirer();
+        registerPlayerDamageFirer();
     }
 
     public void registerPlayerJoinFirer(){
@@ -26,10 +32,10 @@ public class PlayerEventFirers implements Listener {
                 .handler(e -> {
                     Player player = e.getPlayer();
 
-                    SkyblockPlayer skyblockPlayer = PlayerRegistry.getInstance().createSkyblockPlayer(player);
+                    SkyblockPlayer skyblockPlayer = playerRegistry.createSkyblockPlayer(player);
                     SkyblockPlayerJoinEvent sbPlayerJoinEvt = new SkyblockPlayerJoinEvent(skyblockPlayer, e);
 
-                    Bukkit.getPluginManager().callEvent(sbPlayerJoinEvt);
+                    sbPlayerJoinEvt.call();
                 });
     }
 
@@ -38,10 +44,10 @@ public class PlayerEventFirers implements Listener {
                 .handler(e -> {
                     Player player = e.getPlayer();
 
-                    SkyblockPlayer skyblockPlayer = PlayerRegistry.getInstance().getPlayer(player.getUniqueId());
+                    SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
                     SkyblockPlayerLeaveEvent sbPlayerLeaveEvt = new SkyblockPlayerLeaveEvent(skyblockPlayer, e);
 
-                    Bukkit.getPluginManager().callEvent(sbPlayerLeaveEvt);
+                    sbPlayerLeaveEvt.call();
                 });
     }
 
@@ -50,10 +56,67 @@ public class PlayerEventFirers implements Listener {
                 .handler(e -> {
                     Player player = e.getPlayer();
 
-                    SkyblockPlayer skyblockPlayer = PlayerRegistry.getInstance().getPlayer(player.getUniqueId());
-                    SkyblockPlayerChatEvent sbPlayerChatEvt = new SkyblockPlayerChatEvent(skyblockPlayer, e, e.getMessage());
+                    if(!e.isCancelled()){
+                        SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
+                        SkyblockPlayerChatEvent sbPlayerChatEvt = new SkyblockPlayerChatEvent(skyblockPlayer, e, e.getMessage());
 
-                    Bukkit.getPluginManager().callEvent(sbPlayerChatEvt);
+                        sbPlayerChatEvt.call();
+                    }
                 });
     }
+
+    public void registerPlayerDamageFirer(){
+        Events.subscribe(EntityDamageEvent.class)
+                .filter(e -> e.getEntity() instanceof Player)
+                .handler(e -> {
+                    Player player = (Player) e.getEntity();
+
+                    SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
+                    SkyblockPlayerDamageEvent sbPlayerDamageEvt = new SkyblockPlayerDamageEvent(skyblockPlayer, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+
+                    sbPlayerDamageEvt.call();
+                });
+
+        Events.subscribe(EntityDamageByEntityEvent.class)
+                .filter(e -> e.getEntity() instanceof Player)
+                .handler(e -> {
+                    Player player = (Player) e.getEntity();
+
+                    SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
+                    SkyblockPlayerDamageByEntityEvent sbPlayerDamageByEntityEvt = new SkyblockPlayerDamageByEntityEvent(skyblockPlayer, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+
+                    sbPlayerDamageByEntityEvt.call();
+                });
+    }
+
+    public void registerPlayerDeathFirer(){
+        Events.subscribe(SkyblockPlayerDamageEvent.class)
+                .handler(e -> {
+                    SkyblockPlayer player = e.getPlayer();
+
+                    if(e.getNewHealth() < 0.5){
+
+                        e.setCancelled(true);
+                        SkyblockPlayerDeathEvent deathEvent = new SkyblockPlayerDeathEvent(player, player.location());
+                        deathEvent.call();
+                    }
+
+                });
+
+        Events.subscribe(SkyblockPlayerDamageByEntityEvent.class)
+                .handler(e -> {
+                    SkyblockPlayer player = e.getPlayer();
+
+                    if(e.getNewHealth() < 0.5){
+                        e.setCancelled(true);
+
+                        SkyblockPlayerDeathEvent deathEvent = new SkyblockPlayerDeathEvent(player, player.location());
+                        deathEvent.call();
+                    }
+
+                });
+
+    }
+
+
 }

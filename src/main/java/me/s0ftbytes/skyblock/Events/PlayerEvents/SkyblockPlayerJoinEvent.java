@@ -28,8 +28,4 @@ public class SkyblockPlayerJoinEvent extends SkyblockPlayerEvent {
         return bukkitEvent;
     }
 
-    public SkyblockPlayer getSkyblockPlayer(){
-        return skyblockPlayer;
-    }
-
 }
