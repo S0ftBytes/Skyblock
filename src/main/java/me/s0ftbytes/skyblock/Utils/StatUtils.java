@@ -1,4 +1,4 @@
-package me.s0ftbytes.skyblock.Stats;
+package me.s0ftbytes.skyblock.Utils;
 
 import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationFile;

@@ -40,6 +40,7 @@ public class ConfigurationFile {
     }
 
     public FileConfiguration getConfig(){
+        if(config == null) load();
         return config;
     }
 

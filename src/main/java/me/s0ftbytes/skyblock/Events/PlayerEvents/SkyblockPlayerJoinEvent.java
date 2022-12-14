@@ -1,4 +1,4 @@
-package me.s0ftbytes.skyblock.Events;
+package me.s0ftbytes.skyblock.Events.PlayerEvents;
 
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.event.player.PlayerJoinEvent;

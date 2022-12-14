@@ -1,5 +1,8 @@
 package me.s0ftbytes.skyblock;
 
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerStatUpdateEvent;
+import me.s0ftbytes.skyblock.Registries.StatRegistry;
+import me.s0ftbytes.skyblock.Stats.Stat;
 import me.s0ftbytes.skyblock.Utils.PlayerUtils;
 import org.bukkit.entity.Player;
 
@@ -48,7 +51,26 @@ public class SkyblockPlayer {
     }
 
     public void setStat(String statID, Number value){
-        stats.put(statID, value);
+        StatRegistry statRegistry = StatRegistry.getInstance();
+
+        Stat stat = statRegistry.getStat(statID);
+        if(stat != null){
+            SkyblockPlayerStatUpdateEvent statUpdateEvent = new SkyblockPlayerStatUpdateEvent(this, stat, getStat(statID), value);
+            statUpdateEvent.call();
+
+            if(!statUpdateEvent.isCancelled()){
+                value = statUpdateEvent.getNewValue();
+
+                stats.put(statID, value);
+                stat.applyStat(this, value);
+            }
+        }
+    }
+
+    public void setStats(HashMap<String, Number> stats){
+        for(String statID : stats.keySet()){
+            setStat(statID, stats.get(statID));
+        }
     }
 
     public Number getStat(String statID){
@@ -56,7 +78,7 @@ public class SkyblockPlayer {
     }
 
     public void removeStat(String statID){
-        stats.remove(statID);
+        setStat(statID, 0);
     }
 
     public boolean hasStat(String statID){

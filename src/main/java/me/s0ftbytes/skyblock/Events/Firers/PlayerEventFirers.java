@@ -1,9 +1,9 @@
 package me.s0ftbytes.skyblock.Events.Firers;
 
 import me.lucko.helper.Events;
-import me.s0ftbytes.skyblock.Events.SkyblockPlayerChatEvent;
-import me.s0ftbytes.skyblock.Events.SkyblockPlayerJoinEvent;
-import me.s0ftbytes.skyblock.Events.SkyblockPlayerLeaveEvent;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerChatEvent;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerJoinEvent;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerLeaveEvent;
 import me.s0ftbytes.skyblock.Registries.PlayerRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.Bukkit;
@@ -31,16 +31,6 @@ public class PlayerEventFirers implements Listener {
 
                     Bukkit.getPluginManager().callEvent(sbPlayerJoinEvt);
                 });
-
-        Events.subscribe(SkyblockPlayerJoinEvent.class)
-                .handler(e -> {
-                    SkyblockPlayer skyblockPlayer = e.getSkyblockPlayer();
-                    Player player = skyblockPlayer.getBukkitPlayer();
-
-                    System.out.println("SkyblockPlayerJoinEvent fired for " + skyblockPlayer.getStats());
-                    player.sendMessage("Welcome to the server, " + player.getName() + "!");
-                });
-
     }
 
     public void registerPlayerLeaveFirer(){

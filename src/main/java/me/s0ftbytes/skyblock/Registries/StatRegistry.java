@@ -1,9 +1,15 @@
 package me.s0ftbytes.skyblock.Registries;
 
+import me.s0ftbytes.skyblock.Stats.HealthStat;
 import me.s0ftbytes.skyblock.Stats.Stat;
+import org.bukkit.Bukkit;
 
 import java.io.File;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class StatRegistry {
 
@@ -16,26 +22,12 @@ public class StatRegistry {
     }
 
     public void registerStats(){
-        //Get all the files that are in the Stats folder and if they are a class that implements Stat, register them into the map
-        File statsFolder = new File("../Stats");
+        List<Stat> stats = new ArrayList<>();
+        Collections.addAll(stats,
+                new HealthStat());
 
-        try{
-            for(File file : statsFolder.listFiles()){
-                String className = file.getName().replace(".java", "");
-
-                Class<?> clazz = Class.forName("me.s0ftbytes.playerstats.Stats." + className);
-
-                if(Stat.class.isAssignableFrom(clazz)){
-                    Stat stat = (Stat) clazz.newInstance();
-                    stats.put(stat.getID(), stat);
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
+        for(Stat stat : stats){
+            registerStat(stat);
         }
     }
 
@@ -57,5 +49,13 @@ public class StatRegistry {
 
     public HashMap<String, Stat> getStats(){
         return stats;
+    }
+
+    public HashMap<String, Number> getStatDefaults(){
+        HashMap<String, Number> values = new HashMap<>();
+        for(Stat stat : stats.values()){
+            values.put(stat.getID(), stat.getDefaultValue());
+        }
+        return values;
     }
 }

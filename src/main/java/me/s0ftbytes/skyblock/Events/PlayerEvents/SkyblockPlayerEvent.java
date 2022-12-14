@@ -1,4 +1,4 @@
-package me.s0ftbytes.skyblock.Events;
+package me.s0ftbytes.skyblock.Events.PlayerEvents;
 
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.event.Cancellable;
@@ -6,6 +6,8 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 import java.sql.Timestamp;
+
+import static org.bukkit.Bukkit.getServer;
 
 public abstract class SkyblockPlayerEvent extends Event implements Cancellable {
         private static final HandlerList HANDLER_LIST = new HandlerList();
@@ -41,6 +43,10 @@ public abstract class SkyblockPlayerEvent extends Event implements Cancellable {
 
         public Timestamp getEventTimestamp() {
             return eventTimestamp;
+        }
+
+        public void call(){
+            getServer().getPluginManager().callEvent(this);
         }
 
 }
