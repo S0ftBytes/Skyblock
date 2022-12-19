@@ -1,34 +1,42 @@
 package me.s0ftbytes.skyblock.Stats;
 
+import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import me.s0ftbytes.skyblock.Utils.StatUtils;
 
 public class HealthStat implements Stat {
 
-        @Override
-        public String getID() {
+    @Override
+    public String getID() {
             return "health";
         }
 
-        @Override
-        public String getName() {
+    @Override
+    public String getName() {
             return "Health";
         }
 
-        @Override
-        public String getDisplay(Number value) {
+    @Override
+    public String getDisplay(Number value) {
             return StatUtils.getStatDisplay(getID(), value);
         }
 
-        @Override
-        public Number getDefaultValue() {
+    @Override
+    public Number getDefaultValue() {
             return StatUtils.getDefaultStatValue(getID());
         }
 
-        @Override
-        public void applyStat(SkyblockPlayer player, Number value) {
-            if(value.intValue() <= 0) value = 1;
+    @Override
+    public void applyStat(SkyblockPlayer player, Number value) {
+        if(value.intValue() <= 0) value = 1;
 
-            player.getBukkitPlayer().setMaxHealth(value.doubleValue());
-        }
+        player.getBukkitPlayer().setMaxHealth(value.doubleValue());
+    }
+
+    @Override
+    public void applyStat(SkyblockEntity entity, Number value) {
+        if(value.intValue() <= 0) value = 1;
+
+        entity.getLivingEntity().setMaxHealth(value.doubleValue());
+    }
 }

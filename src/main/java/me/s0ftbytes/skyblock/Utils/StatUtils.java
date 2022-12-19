@@ -3,6 +3,8 @@ package me.s0ftbytes.skyblock.Utils;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationFile;
 
+import java.util.HashMap;
+
 public class StatUtils {
 
     public static Number getDefaultStatValue(String statID){

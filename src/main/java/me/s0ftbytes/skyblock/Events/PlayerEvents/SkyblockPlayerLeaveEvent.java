@@ -6,11 +6,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class SkyblockPlayerLeaveEvent extends SkyblockPlayerEvent {
 
     private PlayerQuitEvent bukkitEvent;
-    private SkyblockPlayer skyblockPlayer;
     public SkyblockPlayerLeaveEvent(SkyblockPlayer player, PlayerQuitEvent bukkitEvent) {
         super(player);
 
-        this.skyblockPlayer = player;
         this.bukkitEvent = bukkitEvent;
     }
 

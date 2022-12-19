@@ -3,6 +3,7 @@ package me.s0ftbytes.skyblock.Events.Firers;
 import me.lucko.helper.Events;
 import me.s0ftbytes.skyblock.Enums.DamageCause;
 import me.s0ftbytes.skyblock.Events.PlayerEvents.*;
+import me.s0ftbytes.skyblock.Registries.EntityRegistry;
 import me.s0ftbytes.skyblock.Registries.PlayerRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.entity.Player;
@@ -83,9 +84,12 @@ public class PlayerEventFirers implements Listener {
                     Player player = (Player) e.getEntity();
 
                     SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
-                    SkyblockPlayerDamageByEntityEvent sbPlayerDamageByEntityEvt = new SkyblockPlayerDamageByEntityEvent(skyblockPlayer, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+
+                    SkyblockPlayerDamageByEntityEvent sbPlayerDamageByEntityEvt = new SkyblockPlayerDamageByEntityEvent(skyblockPlayer, EntityRegistry.getInstance().getEntity(e.getEntity().getEntityId()), e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+                    SkyblockPlayerDamageEvent sbPlayerDamageEvt = new SkyblockPlayerDamageEvent(skyblockPlayer, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
 
                     sbPlayerDamageByEntityEvt.call();
+                    sbPlayerDamageEvt.call();
                 });
     }
 

@@ -1,30 +1,25 @@
 package me.s0ftbytes.skyblock.Events.PlayerEvents;
 
+import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
 
-    private SkyblockPlayer player;
-    private Entity entity;
+    private SkyblockEntity entity;
     private Double damage;
     private ItemStack weapon;
 
-    public SkyblockPlayerAttackEvent(SkyblockPlayer player, Entity entity, double damage, ItemStack weapon) {
+    public SkyblockPlayerAttackEvent(SkyblockPlayer player, SkyblockEntity entity, double damage, ItemStack weapon) {
         super(player);
 
-        this.player = player;
         this.entity = entity;
         this.damage = damage;
         this.weapon = weapon;
     }
 
-    public SkyblockPlayer getPlayer() {
-        return player;
-    }
-
-    public Entity getEntity() {
+    public SkyblockEntity getEntity() {
         return entity;
     }
 

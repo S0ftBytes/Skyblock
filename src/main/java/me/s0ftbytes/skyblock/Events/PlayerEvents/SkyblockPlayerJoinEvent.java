@@ -7,12 +7,10 @@ public class SkyblockPlayerJoinEvent extends SkyblockPlayerEvent {
 
     private boolean firstJoin;
     private PlayerJoinEvent bukkitEvent;
-    private SkyblockPlayer skyblockPlayer;
     public SkyblockPlayerJoinEvent(SkyblockPlayer player, PlayerJoinEvent bukkitEvent) {
         super(player);
 
         this.firstJoin = player.getBukkitPlayer().hasPlayedBefore();
-        this.skyblockPlayer = player;
         this.bukkitEvent = bukkitEvent;
     }
 

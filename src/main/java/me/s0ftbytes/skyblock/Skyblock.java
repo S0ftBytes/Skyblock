@@ -1,6 +1,7 @@
 package me.s0ftbytes.skyblock;
 
 import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
+import me.s0ftbytes.skyblock.Events.Firers.EntityEventFirers;
 import me.s0ftbytes.skyblock.Events.Firers.PlayerEventFirers;
 import me.s0ftbytes.skyblock.Events.Handlers.HandlePlayerJoinEvent;
 import me.s0ftbytes.skyblock.Registries.RegistryManager;
@@ -33,6 +34,7 @@ public final class Skyblock extends JavaPlugin {
     private void registerEvents(){
         //Fire events
         new PlayerEventFirers();
+        new EntityEventFirers();
 
         //Handle events
         new HandlePlayerJoinEvent();

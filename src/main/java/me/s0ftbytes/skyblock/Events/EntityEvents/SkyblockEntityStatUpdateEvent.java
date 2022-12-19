@@ -1,19 +1,19 @@
-package me.s0ftbytes.skyblock.Events.PlayerEvents;
+package me.s0ftbytes.skyblock.Events.EntityEvents;
 
+import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerEvent;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import me.s0ftbytes.skyblock.Stats.Stat;
 
-public class SkyblockPlayerStatUpdateEvent extends SkyblockPlayerEvent {
+public class SkyblockEntityStatUpdateEvent extends SkyblockEntityEvent {
 
     private Stat stat;
     private Number oldValue;
     private Number newValue;
-    private SkyblockPlayer player;
 
-    public SkyblockPlayerStatUpdateEvent(SkyblockPlayer player, Stat stat, Number oldValue, Number newValue) {
-        super(player);
+    public SkyblockEntityStatUpdateEvent(SkyblockEntity entity, Stat stat, Number oldValue, Number newValue) {
+        super(entity);
 
-        this.player = player;
         this.stat = stat;
         this.oldValue = oldValue;
         this.newValue = newValue;
@@ -33,9 +33,5 @@ public class SkyblockPlayerStatUpdateEvent extends SkyblockPlayerEvent {
 
     public void setNewValue(Number newValue) {
         this.newValue = newValue;
-    }
-
-    public SkyblockPlayer getPlayer() {
-        return player;
     }
 }
