@@ -45,6 +45,7 @@ public class SpeedStat implements Stat {
     @Override
     public void applyStat(SkyblockPlayer player, Number value) {
         if(value.intValue() < getMinValue().intValue()) value = getMinValue();
+        if(value.intValue() > getMaxValue().intValue()) value = getMaxValue();
 
         float defaultAttr = 0.2f;
         player.getBukkitPlayer().setWalkSpeed(defaultAttr * (value.floatValue() / 100));
@@ -53,6 +54,7 @@ public class SpeedStat implements Stat {
     @Override
     public void applyStat(SkyblockEntity entity, Number value) {
         if(value.intValue() < getMinValue().intValue()) value = getMinValue();
+        if(value.intValue() > getMaxValue().intValue()) value = getMaxValue();
 
         float defaultAttr = 0.2f;
 
