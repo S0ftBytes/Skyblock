@@ -3,7 +3,9 @@ package me.s0ftbytes.skyblock.Registries;
 import me.s0ftbytes.skyblock.Entities.EntityDecloration;
 import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class EntityRegistry {
 
@@ -35,6 +37,10 @@ public class EntityRegistry {
 
     public SkyblockEntity getEntity(int id) {
         return spawnedEntities.get(id);
+    }
+
+    public List<String> getRegisteredEntities() {
+        return new ArrayList<>(registeredEntities.keySet());
     }
 
     public void addEntity(SkyblockEntity entity) {

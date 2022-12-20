@@ -75,7 +75,7 @@ public class PlayerEventFirers implements Listener {
                     Player player = (Player) e.getEntity();
 
                     SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
-                    SkyblockPlayerDamageEvent sbPlayerDamageEvt = new SkyblockPlayerDamageEvent(skyblockPlayer, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+                    SkyblockPlayerDamageEvent sbPlayerDamageEvt = new SkyblockPlayerDamageEvent(skyblockPlayer, DamageCause.getDamageCause(e.getCause()), e);
 
                     sbPlayerDamageEvt.call();
                 });
@@ -87,8 +87,8 @@ public class PlayerEventFirers implements Listener {
 
                     SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
 
-                    SkyblockPlayerDamageByEntityEvent sbPlayerDamageByEntityEvt = new SkyblockPlayerDamageByEntityEvent(skyblockPlayer, EntityRegistry.getInstance().getEntity(e.getEntity().getEntityId()), e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
-                    SkyblockPlayerDamageEvent sbPlayerDamageEvt = new SkyblockPlayerDamageEvent(skyblockPlayer, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+                    SkyblockPlayerDamageByEntityEvent sbPlayerDamageByEntityEvt = new SkyblockPlayerDamageByEntityEvent(skyblockPlayer, EntityRegistry.getInstance().getEntity(e.getDamager().getEntityId()), DamageCause.getDamageCause(e.getCause()), e);
+                    SkyblockPlayerDamageEvent sbPlayerDamageEvt = new SkyblockPlayerDamageEvent(skyblockPlayer, DamageCause.getDamageCause(e.getCause()), e);
 
                     sbPlayerDamageByEntityEvt.call();
                     sbPlayerDamageEvt.call();
@@ -134,7 +134,7 @@ public class PlayerEventFirers implements Listener {
 
                     SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
                     SkyblockEntity entity = EntityRegistry.getInstance().getEntity(e.getEntity().getEntityId());
-                    SkyblockPlayerAttackEvent sbPlayerAttackEvt = new SkyblockPlayerAttackEvent(skyblockPlayer, entity, e.getDamage(), player.getItemInHand(), e);
+                    SkyblockPlayerAttackEvent sbPlayerAttackEvt = new SkyblockPlayerAttackEvent(skyblockPlayer, entity, player.getItemInHand(), e);
 
                     sbPlayerAttackEvt.call();
                 });

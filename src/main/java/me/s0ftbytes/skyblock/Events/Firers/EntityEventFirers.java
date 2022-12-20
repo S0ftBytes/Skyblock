@@ -8,11 +8,9 @@ import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityDamageEvent;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntitySpawnEvent;
 import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerAttackEvent;
 import me.s0ftbytes.skyblock.Registries.EntityRegistry;
-import me.s0ftbytes.skyblock.Registries.PlayerRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 public class EntityEventFirers {
@@ -46,7 +44,7 @@ public class EntityEventFirers {
                 .handler(e -> {
                     SkyblockEntity entity = entityRegistry.getEntity(e.getEntity().getEntityId());
 
-                    SkyblockEntityDamageEvent skyblockEntityDamageEvent = new SkyblockEntityDamageEvent(entity, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+                    SkyblockEntityDamageEvent skyblockEntityDamageEvent = new SkyblockEntityDamageEvent(entity, DamageCause.getDamageCause(e.getCause()), e);
                     skyblockEntityDamageEvent.call();
                 });
 
@@ -56,7 +54,10 @@ public class EntityEventFirers {
                     SkyblockEntity entity = e.getEntity();
                     SkyblockPlayer player = e.getPlayer();
 
-                    SkyblockEntityDamageByPlayerEvent skyblockEntityDamageEvent = new SkyblockEntityDamageByPlayerEvent(entity, player, e.getDamage(), e.getBukkitEvent().getFinalDamage(), DamageCause.getDamageCause(e.getBukkitEvent().getCause()));
+                    SkyblockEntityDamageByPlayerEvent skyblockEntityAttackedEvent = new SkyblockEntityDamageByPlayerEvent(entity, player, DamageCause.getDamageCause(e.getBukkitEvent().getCause()));
+                    SkyblockEntityDamageEvent skyblockEntityDamageEvent = new SkyblockEntityDamageEvent(entity, DamageCause.getDamageCause(e.getBukkitEvent().getCause()), e.getBukkitEvent());
+
+                    skyblockEntityAttackedEvent.call();
                     skyblockEntityDamageEvent.call();
                 });
     }

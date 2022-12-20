@@ -137,7 +137,9 @@ public abstract class SkyblockEntity {
     }
 
     public Number getStat(String statID){
-        return stats.get(statID);
+        if(hasStat(statID)) return stats.get(statID);
+        
+        return 0;
     }
 
     public void removeStat(String statID){

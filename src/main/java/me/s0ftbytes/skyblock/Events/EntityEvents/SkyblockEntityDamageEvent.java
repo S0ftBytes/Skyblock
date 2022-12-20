@@ -6,18 +6,14 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 public class SkyblockEntityDamageEvent extends SkyblockEntityEvent {
 
-    private double damage;
-    private double finalDamage;
     private DamageCause cause;
     private SkyblockEntity entity;
     private EntityDamageEvent bukkitEvent;
 
-    public SkyblockEntityDamageEvent(SkyblockEntity entity, double damage, double finalDamage, DamageCause cause, EntityDamageEvent event) {
+    public SkyblockEntityDamageEvent(SkyblockEntity entity, DamageCause cause, EntityDamageEvent event) {
         super(entity);
 
         this.entity = entity;
-        this.damage = damage;
-        this.finalDamage = finalDamage;
         this.cause = cause;
         this.bukkitEvent = event;
     }
@@ -27,16 +23,11 @@ public class SkyblockEntityDamageEvent extends SkyblockEntityEvent {
     }
 
     public double getDamage() {
-        return damage;
+        return bukkitEvent.getDamage();
     }
 
     public void setDamage(double damage) {
-        this.damage = damage;
         bukkitEvent.setDamage(damage);
-    }
-
-    public double getFinalDamage() {
-        return finalDamage;
     }
 
     public DamageCause getCause() {
@@ -48,7 +39,7 @@ public class SkyblockEntityDamageEvent extends SkyblockEntityEvent {
     }
 
     public double getNewHealth() {
-        return entity.getStat("health").intValue() - finalDamage;
+        return entity.getStat("health").intValue() - bukkitEvent.getFinalDamage();
     }
 
     @Override

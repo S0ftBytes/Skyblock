@@ -8,16 +8,14 @@ import org.bukkit.inventory.ItemStack;
 public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
 
     private SkyblockEntity entity;
-    private Double damage;
     private final ItemStack weapon;
     private boolean critical = false;
     private EntityDamageByEntityEvent bukkitEvent;
 
-    public SkyblockPlayerAttackEvent(SkyblockPlayer player, SkyblockEntity entity, double damage, ItemStack weapon, EntityDamageByEntityEvent event) {
+    public SkyblockPlayerAttackEvent(SkyblockPlayer player, SkyblockEntity entity, ItemStack weapon, EntityDamageByEntityEvent event) {
         super(player);
 
         this.entity = entity;
-        this.damage = damage;
         this.weapon = weapon;
         this.bukkitEvent = event;
     }
@@ -27,12 +25,11 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
     }
 
     public Double getDamage() {
-        return damage;
+        return bukkitEvent.getDamage();
     }
 
     public void setDamage(Double damage) {
         bukkitEvent.setDamage(damage);
-        this.damage = damage;
     }
 
     public ItemStack getWeapon() {
