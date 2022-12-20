@@ -2,7 +2,7 @@ package me.s0ftbytes.skyblock.Events.PlayerEvents;
 
 import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
-import org.bukkit.entity.Entity;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
@@ -11,13 +11,15 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
     private Double damage;
     private final ItemStack weapon;
     private boolean critical = false;
+    private EntityDamageByEntityEvent bukkitEvent;
 
-    public SkyblockPlayerAttackEvent(SkyblockPlayer player, SkyblockEntity entity, double damage, ItemStack weapon) {
+    public SkyblockPlayerAttackEvent(SkyblockPlayer player, SkyblockEntity entity, double damage, ItemStack weapon, EntityDamageByEntityEvent event) {
         super(player);
 
         this.entity = entity;
         this.damage = damage;
         this.weapon = weapon;
+        this.bukkitEvent = event;
     }
 
     public SkyblockEntity getEntity() {
@@ -29,6 +31,7 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
     }
 
     public void setDamage(Double damage) {
+        bukkitEvent.setDamage(damage);
         this.damage = damage;
     }
 
@@ -42,6 +45,10 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
 
     public void setCritical(boolean critical) {
         this.critical = critical;
+    }
+
+    public EntityDamageByEntityEvent getBukkitEvent() {
+        return bukkitEvent;
     }
 
 }

@@ -1,6 +1,7 @@
 package me.s0ftbytes.skyblock.Events.Firers;
 
 import me.lucko.helper.Events;
+import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.Enums.DamageCause;
 import me.s0ftbytes.skyblock.Events.PlayerEvents.*;
 import me.s0ftbytes.skyblock.Registries.EntityRegistry;
@@ -26,6 +27,7 @@ public class PlayerEventFirers implements Listener {
         registerPlayerChatFirer();
         registerPlayerDeathFirer();
         registerPlayerDamageFirer();
+        registerPlayerAttackFirer();
     }
 
     public void registerPlayerJoinFirer(){
@@ -120,6 +122,22 @@ public class PlayerEventFirers implements Listener {
 
                 });
 
+    }
+
+    public void registerPlayerAttackFirer(){
+        Events.subscribe(EntityDamageByEntityEvent.class)
+                .filter(e -> !e.isCancelled())
+                .filter(e -> e.getDamager() instanceof Player)
+                .filter(e -> e.getEntity().hasMetadata("skyblock_entity_id"))
+                .handler(e -> {
+                    Player player = (Player) e.getDamager();
+
+                    SkyblockPlayer skyblockPlayer = playerRegistry.getPlayer(player.getUniqueId());
+                    SkyblockEntity entity = EntityRegistry.getInstance().getEntity(e.getEntity().getEntityId());
+                    SkyblockPlayerAttackEvent sbPlayerAttackEvt = new SkyblockPlayerAttackEvent(skyblockPlayer, entity, e.getDamage(), player.getItemInHand(), e);
+
+                    sbPlayerAttackEvt.call();
+                });
     }
 
 

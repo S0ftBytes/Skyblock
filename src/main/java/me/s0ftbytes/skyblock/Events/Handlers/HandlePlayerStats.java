@@ -9,6 +9,7 @@ public class HandlePlayerStats {
 
     public HandlePlayerStats(){
         handleCriticalChance();
+        handleCriticalDamage();
     }
 
     public void handleCriticalChance(){
@@ -19,6 +20,15 @@ public class HandlePlayerStats {
                     if (ThreadLocalRandom.current().nextDouble() <= e.getPlayer().getStat("critical_chance").doubleValue() / 100) {
                         e.setCritical(true);
                     }
+                });
+    }
+
+    public void handleCriticalDamage(){
+        Events.subscribe(SkyblockPlayerAttackEvent.class)
+                .filter(e -> e.isCancelled())
+                .filter(e -> e.isCritical())
+                .handler(e -> {
+                    e.setDamage(e.getDamage() * (e.getPlayer().getStat("critical_damage").doubleValue() / 100));
                 });
     }
 }

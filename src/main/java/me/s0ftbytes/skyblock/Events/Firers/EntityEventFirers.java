@@ -6,6 +6,7 @@ import me.s0ftbytes.skyblock.Enums.DamageCause;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityDamageByPlayerEvent;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityDamageEvent;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntitySpawnEvent;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerAttackEvent;
 import me.s0ftbytes.skyblock.Registries.EntityRegistry;
 import me.s0ftbytes.skyblock.Registries.PlayerRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
@@ -49,15 +50,13 @@ public class EntityEventFirers {
                     skyblockEntityDamageEvent.call();
                 });
 
-        Events.subscribe(EntityDamageByEntityEvent.class)
-                .filter(e -> !(e.getEntity() instanceof Player))
-                .filter(e -> e.getDamager() instanceof Player)
-                .filter(e -> e.getEntity().hasMetadata("skyblock_entity_id"))
+        Events.subscribe(SkyblockPlayerAttackEvent.class)
+                .filter(e -> e.isCancelled())
                 .handler(e -> {
-                    SkyblockEntity entity = entityRegistry.getEntity(e.getEntity().getEntityId());
-                    SkyblockPlayer player = PlayerRegistry.getInstance().getPlayer(((Player) e.getDamager()).getUniqueId());
+                    SkyblockEntity entity = e.getEntity();
+                    SkyblockPlayer player = e.getPlayer();
 
-                    SkyblockEntityDamageByPlayerEvent skyblockEntityDamageEvent = new SkyblockEntityDamageByPlayerEvent(entity, player, e.getDamage(), e.getFinalDamage(), DamageCause.getDamageCause(e.getCause()), e);
+                    SkyblockEntityDamageByPlayerEvent skyblockEntityDamageEvent = new SkyblockEntityDamageByPlayerEvent(entity, player, e.getDamage(), e.getBukkitEvent().getFinalDamage(), DamageCause.getDamageCause(e.getBukkitEvent().getCause()));
                     skyblockEntityDamageEvent.call();
                 });
     }

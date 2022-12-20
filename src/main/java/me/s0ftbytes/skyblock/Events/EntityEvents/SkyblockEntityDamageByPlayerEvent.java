@@ -13,14 +13,13 @@ public class SkyblockEntityDamageByPlayerEvent extends SkyblockEntityEvent {
     private DamageCause cause;
     private EntityDamageByEntityEvent bukkitEvent;
 
-    public SkyblockEntityDamageByPlayerEvent(SkyblockEntity entity, SkyblockPlayer player, double damage, double finalDamage, DamageCause cause, EntityDamageByEntityEvent event) {
+    public SkyblockEntityDamageByPlayerEvent(SkyblockEntity entity, SkyblockPlayer player, double damage, double finalDamage, DamageCause cause) {
         super(entity);
 
         this.player = player;
         this.damage = damage;
         this.finalDamage = finalDamage;
         this.cause = cause;
-        this.bukkitEvent = event;
     }
 
     public double getDamage() {

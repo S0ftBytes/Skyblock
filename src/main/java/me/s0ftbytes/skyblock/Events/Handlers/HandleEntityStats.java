@@ -8,7 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class HandleEntityStats {
 
     public HandleEntityStats(){
-
+        handleCriticalChance();
+        handleCriticalDamage();
     }
 
     public void handleCriticalChance(){
@@ -19,6 +20,15 @@ public class HandleEntityStats {
                     if (ThreadLocalRandom.current().nextDouble() <= e.getEntity().getStat("critical_chance").doubleValue() / 100) {
                         e.setCritical(true);
                     }
+                });
+    }
+
+    public void handleCriticalDamage(){
+        Events.subscribe(SkyblockPlayerDamageByEntityEvent.class)
+                .filter(e -> e.isCancelled())
+                .filter(e -> e.isCritical())
+                .handler(e -> {
+                    e.setDamage(e.getDamage() * (e.getEntity().getStat("critical_damage").doubleValue() / 100));
                 });
     }
 }
