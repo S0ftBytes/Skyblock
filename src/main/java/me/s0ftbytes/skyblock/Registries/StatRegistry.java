@@ -1,5 +1,6 @@
 package me.s0ftbytes.skyblock.Registries;
 
+import me.s0ftbytes.skyblock.Stats.CriticalChanceStat;
 import me.s0ftbytes.skyblock.Stats.HealthStat;
 import me.s0ftbytes.skyblock.Stats.Stat;
 import org.bukkit.Bukkit;
@@ -24,7 +25,9 @@ public class StatRegistry {
     public void registerStats(){
         List<Stat> stats = new ArrayList<>();
         Collections.addAll(stats,
-                new HealthStat());
+                new HealthStat(),
+                new CriticalChanceStat()
+        );
 
         for(Stat stat : stats){
             registerStat(stat);

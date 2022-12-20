@@ -3,7 +3,9 @@ package me.s0ftbytes.skyblock;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
 import me.s0ftbytes.skyblock.Events.Firers.EntityEventFirers;
 import me.s0ftbytes.skyblock.Events.Firers.PlayerEventFirers;
+import me.s0ftbytes.skyblock.Events.Handlers.HandleEntityStats;
 import me.s0ftbytes.skyblock.Events.Handlers.HandlePlayerJoinEvent;
+import me.s0ftbytes.skyblock.Events.Handlers.HandlePlayerStats;
 import me.s0ftbytes.skyblock.Registries.RegistryManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,8 +38,13 @@ public final class Skyblock extends JavaPlugin {
         new PlayerEventFirers();
         new EntityEventFirers();
 
-        //Handle events
+        //Handle Player events
         new HandlePlayerJoinEvent();
+        new HandlePlayerStats();
+
+
+        //Handle Entity events
+        new HandleEntityStats();
     }
 
     public static Skyblock getSkyblockInstance(){

@@ -13,10 +13,12 @@ public class SkyblockPlayerDamageByEntityEvent extends SkyblockPlayerEvent {
     private double finalDamage;
     private DamageCause cause;
     private EntityDamageByEntityEvent bukkitEvent;
+    private boolean critical = false;
 
     public SkyblockPlayerDamageByEntityEvent(SkyblockPlayer player, SkyblockEntity entity, double damage, double finalDamage, DamageCause cause, EntityDamageByEntityEvent event) {
         super(player);
 
+        this.entity = entity;
         this.damage = damage;
         this.finalDamage = finalDamage;
         this.cause = cause;
@@ -56,6 +58,14 @@ public class SkyblockPlayerDamageByEntityEvent extends SkyblockPlayerEvent {
     public void setCancelled(boolean cancelled) {
         super.setCancelled(cancelled);
         bukkitEvent.setCancelled(cancelled);
+    }
+
+    public boolean isCritical() {
+        return critical;
+    }
+
+    public void setCritical(boolean critical) {
+        this.critical = critical;
     }
 
 

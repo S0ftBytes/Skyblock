@@ -9,7 +9,8 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
 
     private SkyblockEntity entity;
     private Double damage;
-    private ItemStack weapon;
+    private final ItemStack weapon;
+    private boolean critical = false;
 
     public SkyblockPlayerAttackEvent(SkyblockPlayer player, SkyblockEntity entity, double damage, ItemStack weapon) {
         super(player);
@@ -33,6 +34,14 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
 
     public ItemStack getWeapon() {
         return weapon;
+    }
+
+    public boolean isCritical() {
+        return critical;
+    }
+
+    public void setCritical(boolean critical) {
+        this.critical = critical;
     }
 
 }
