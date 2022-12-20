@@ -4,44 +4,39 @@ import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import me.s0ftbytes.skyblock.Utils.StatUtils;
 
-public class HealthStat implements Stat {
-
+public class DamageStat implements Stat {
     @Override
     public String getID() {
-            return "health";
-        }
+        return "damage";
+    }
 
     @Override
     public String getName() {
-            return "Health";
-        }
+        return "Damage";
+    }
 
     @Override
     public String getDisplay(Number value) {
-            return StatUtils.getStatDisplay(getID(), value);
-        }
+        return StatUtils.getStatDisplay(getID(), value);
+    }
 
     @Override
     public Number getDefaultValue() {
-            return StatUtils.getDefaultStatValue(getID());
-        }
+        return StatUtils.getDefaultStatValue(getID());
+    }
 
     @Override
     public boolean isHiddenStat() {
-        return false;
+        return true;
     }
 
     @Override
     public void applyStat(SkyblockPlayer player, Number value) {
-        if(value.intValue() <= 0) value = 1;
 
-        player.getBukkitPlayer().setMaxHealth(value.doubleValue());
     }
 
     @Override
     public void applyStat(SkyblockEntity entity, Number value) {
-        if(value.intValue() <= 0) value = 1;
 
-        entity.getLivingEntity().setMaxHealth(value.doubleValue());
     }
 }
