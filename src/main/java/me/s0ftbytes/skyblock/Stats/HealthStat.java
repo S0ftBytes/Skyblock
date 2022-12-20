@@ -27,20 +27,30 @@ public class HealthStat implements Stat {
         }
 
     @Override
+    public Number getMinValue() {
+        return 1;
+    }
+
+    @Override
+    public Number getMaxValue() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public boolean isHiddenStat() {
         return false;
     }
 
     @Override
     public void applyStat(SkyblockPlayer player, Number value) {
-        if(value.intValue() <= 0) value = 1;
+        if(value.intValue() < getMinValue().intValue()) value = getMinValue();
 
         player.getBukkitPlayer().setMaxHealth(value.doubleValue());
     }
 
     @Override
     public void applyStat(SkyblockEntity entity, Number value) {
-        if(value.intValue() <= 0) value = 1;
+        if(value.intValue() < getMinValue().intValue()) value = getMinValue();
 
         entity.getLivingEntity().setMaxHealth(value.doubleValue());
     }

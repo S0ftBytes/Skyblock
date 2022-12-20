@@ -26,6 +26,16 @@ public class DamageStat implements Stat {
     }
 
     @Override
+    public Number getMinValue() {
+        return 1;
+    }
+
+    @Override
+    public Number getMaxValue() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public boolean isHiddenStat() {
         return true;
     }

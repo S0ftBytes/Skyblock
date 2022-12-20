@@ -26,6 +26,16 @@ public class StrengthStat implements Stat {
     }
 
     @Override
+    public Number getMinValue() {
+        return Integer.MIN_VALUE;
+    }
+
+    @Override
+    public Number getMaxValue() {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
     public boolean isHiddenStat() {
         return false;
     }

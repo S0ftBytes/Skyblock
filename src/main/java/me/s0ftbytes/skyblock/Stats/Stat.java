@@ -8,6 +8,8 @@ public interface Stat {
         String getName();
         String getDisplay(Number value);
         Number getDefaultValue();
+        Number getMinValue();
+        Number getMaxValue();
         boolean isHiddenStat();
         void applyStat(SkyblockPlayer player, Number value);
         void applyStat(SkyblockEntity entity, Number value);

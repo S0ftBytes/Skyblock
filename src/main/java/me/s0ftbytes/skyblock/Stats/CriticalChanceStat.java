@@ -26,6 +26,16 @@ public class CriticalChanceStat implements Stat {
     }
 
     @Override
+    public Number getMinValue() {
+        return 0;
+    }
+
+    @Override
+    public Number getMaxValue() {
+        return 100;
+    }
+
+    @Override
     public boolean isHiddenStat() {
         return false;
     }
