@@ -23,7 +23,8 @@ public class StatRegistry {
                 new CriticalChanceStat(),
                 new CriticalDamageStat(),
                 new DamageStat(),
-                new StrengthStat()
+                new StrengthStat(),
+                new SpeedStat()
         );
 
         for(Stat stat : stats){

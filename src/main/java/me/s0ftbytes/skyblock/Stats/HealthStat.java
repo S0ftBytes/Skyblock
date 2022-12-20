@@ -24,7 +24,7 @@ public class HealthStat implements Stat {
     @Override
     public Number getDefaultValue() {
             return StatUtils.getDefaultStatValue(getID());
-        }
+    }
 
     @Override
     public Number getMinValue() {
@@ -43,7 +43,7 @@ public class HealthStat implements Stat {
 
     @Override
     public void applyStat(SkyblockPlayer player, Number value) {
-        if(value.intValue() < getMinValue().intValue()) value = getMinValue();
+        if(value.doubleValue() < getMinValue().doubleValue()) value = getMinValue();
 
         player.getBukkitPlayer().setMaxHealth(value.doubleValue());
     }
