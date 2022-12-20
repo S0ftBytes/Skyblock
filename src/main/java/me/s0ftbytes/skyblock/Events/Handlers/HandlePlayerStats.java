@@ -15,7 +15,7 @@ public class HandlePlayerStats {
 
     public void handleCriticalChance(){
         Events.subscribe(SkyblockPlayerAttackEvent.class)
-                .filter(e -> e.isCancelled())
+                .filter(e -> !e.isCancelled())
                 .filter(e -> e.getPlayer().getStat("critical_chance").doubleValue() > 0)
                 .handler(e -> {
                     if (ThreadLocalRandom.current().nextDouble() <= e.getPlayer().getStat("critical_chance").doubleValue() / 100) {
@@ -26,7 +26,7 @@ public class HandlePlayerStats {
 
     public void handleCriticalDamage(){
         Events.subscribe(SkyblockPlayerAttackEvent.class)
-                .filter(e -> e.isCancelled())
+                .filter(e -> !e.isCancelled())
                 .filter(e -> e.isCritical())
                 .handler(e -> {
                     e.setDamage(e.getDamage() * (e.getPlayer().getStat("critical_damage").doubleValue() / 100));
@@ -35,7 +35,7 @@ public class HandlePlayerStats {
 
     public void handleBaseDamageStrength(){
         Events.subscribe(SkyblockPlayerAttackEvent.class)
-                .filter(e -> e.isCancelled())
+                .filter(e -> !e.isCancelled())
                 .filter(e -> e.getPlayer().getStat("damage").intValue() > 0 || e.getPlayer().getStat("strength").intValue() > 0)
                 .handler(e -> {
 

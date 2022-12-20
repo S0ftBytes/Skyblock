@@ -75,7 +75,8 @@ public class SkyblockPlayer {
     }
 
     public Number getStat(String statID){
-        return stats.get(statID);
+        if(stats.containsKey(statID)) return stats.get(statID);
+        return 0;
     }
 
     public void removeStat(String statID){

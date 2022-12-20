@@ -4,6 +4,7 @@ import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
 import me.s0ftbytes.skyblock.Events.Firers.EntityEventFirers;
 import me.s0ftbytes.skyblock.Events.Firers.PlayerEventFirers;
 import me.s0ftbytes.skyblock.Events.Handlers.HandleEntityStats;
+import me.s0ftbytes.skyblock.Events.Handlers.HandleGenericEvents;
 import me.s0ftbytes.skyblock.Events.Handlers.HandlePlayerJoinEvent;
 import me.s0ftbytes.skyblock.Events.Handlers.HandlePlayerStats;
 import me.s0ftbytes.skyblock.Registries.RegistryManager;
@@ -45,6 +46,9 @@ public final class Skyblock extends JavaPlugin {
 
         //Handle Entity events
         new HandleEntityStats();
+
+        //Handle Misc
+        new HandleGenericEvents();
     }
 
     public static Skyblock getSkyblockInstance(){

@@ -1,12 +1,6 @@
 package me.s0ftbytes.skyblock.Registries;
 
-import me.s0ftbytes.skyblock.Stats.CriticalChanceStat;
-import me.s0ftbytes.skyblock.Stats.HealthStat;
-import me.s0ftbytes.skyblock.Stats.Stat;
-import org.bukkit.Bukkit;
-
-import java.io.File;
-import java.nio.file.Paths;
+import me.s0ftbytes.skyblock.Stats.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,7 +20,10 @@ public class StatRegistry {
         List<Stat> stats = new ArrayList<>();
         Collections.addAll(stats,
                 new HealthStat(),
-                new CriticalChanceStat()
+                new CriticalChanceStat(),
+                new CriticalDamageStat(),
+                new DamageStat(),
+                new StrengthStat()
         );
 
         for(Stat stat : stats){

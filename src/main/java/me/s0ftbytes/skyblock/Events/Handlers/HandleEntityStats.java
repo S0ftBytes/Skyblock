@@ -15,7 +15,7 @@ public class HandleEntityStats {
 
     public void handleCriticalChance(){
         Events.subscribe(SkyblockPlayerDamageByEntityEvent.class)
-                .filter(e -> e.isCancelled())
+                .filter(e -> !e.isCancelled())
                 .filter(e -> e.getEntity().getStat("critical_chance").doubleValue() > 0)
                 .handler(e -> {
                     if (ThreadLocalRandom.current().nextDouble() <= e.getEntity().getStat("critical_chance").doubleValue() / 100) {
