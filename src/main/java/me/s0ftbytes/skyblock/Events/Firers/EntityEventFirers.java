@@ -51,7 +51,7 @@ public class EntityEventFirers {
                 });
 
         Events.subscribe(SkyblockPlayerAttackEvent.class)
-                .filter(e -> e.isCancelled())
+                .filter(e -> !e.isCancelled())
                 .handler(e -> {
                     SkyblockEntity entity = e.getEntity();
                     SkyblockPlayer player = e.getPlayer();

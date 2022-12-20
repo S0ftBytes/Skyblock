@@ -154,6 +154,7 @@ public abstract class SkyblockEntity {
 
     public void listenForDamage() {
         Events.subscribe(SkyblockEntityDamageEvent.class)
+                .filter(e -> !e.isCancelled())
                 .filter(e -> e.getEntity().equals(this))
                 .handler(e -> {
                     if(isSpawned()) {
@@ -162,6 +163,7 @@ public abstract class SkyblockEntity {
                 });
 
         Events.subscribe(SkyblockEntityDamageByPlayerEvent.class)
+                .filter(e -> !e.isCancelled())
                 .filter(e -> e.getEntity().equals(this))
                 .handler(e -> {
                     if(isSpawned()) {
