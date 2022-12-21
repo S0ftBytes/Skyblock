@@ -1,28 +1,18 @@
 package me.s0ftbytes.skyblock.Configuration;
 
-import me.s0ftbytes.skyblock.Skyblock;
+public enum ConfigurationDeclaration {
+    STATS("stats"),
+    ENTITIES("entities"),
+    SKILLS("skills"),
+    PLAYER_DATA("player-data");
 
-public class ConfigurationDeclaration {
+    private ConfigurationFile file;
 
-    private static ConfigurationFile statsConfig;
-    private static ConfigurationFile entitiesConfig;
-
-    private Skyblock instance;
-    public ConfigurationDeclaration(Skyblock skyblock){
-        this.instance = skyblock;
+    ConfigurationDeclaration(String fileName) {
+        this.file = new ConfigurationFile(fileName);
     }
 
-    public static ConfigurationFile getStatsConfiguration(){
-        if(statsConfig == null) statsConfig = new ConfigurationFile("stats");
-
-        return statsConfig;
+    public ConfigurationFile getFile() {
+        return file;
     }
-
-
-    public static ConfigurationFile getEntitiesConfiguration(){
-        if(entitiesConfig == null) entitiesConfig = new ConfigurationFile("entities");
-
-        return entitiesConfig;
-    }
-
 }

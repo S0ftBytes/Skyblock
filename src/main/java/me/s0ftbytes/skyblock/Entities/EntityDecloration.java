@@ -8,7 +8,6 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Map;
 
 public enum EntityDecloration {
     WEAK_ZOMBIE(Zombie.class, "weak_zombie", "Zombie");
@@ -34,7 +33,7 @@ public enum EntityDecloration {
         this.name = name;
 
         EntityUtils.createEntityConfigSection(id, name, 1, new HashMap<>());
-        ConfigurationFile config = ConfigurationDeclaration.getEntitiesConfiguration();
+        ConfigurationFile config = ConfigurationDeclaration.ENTITIES.getFile();
 
         FileConfiguration confFile = config.getConfig();
 

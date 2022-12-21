@@ -36,7 +36,7 @@ public class EntityUtils {
     }
 
     public static void createEntityConfigSection(String id, String name, int level, HashMap<String, Number> stats) {
-        ConfigurationFile config = ConfigurationDeclaration.getEntitiesConfiguration();
+        ConfigurationFile config = ConfigurationDeclaration.ENTITIES.getFile();
         FileConfiguration confFile = config.getConfig();
 
         if(!(stats.containsKey("health"))) stats.put("health", 10);
