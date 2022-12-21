@@ -25,7 +25,8 @@ public class StatRegistry {
                 new DamageStat(),
                 new StrengthStat(),
                 new SpeedStat(),
-                new DefenseStat()
+                new DefenseStat(),
+                new AttackSpeedStat()
         );
 
         for(Stat stat : stats){
