@@ -21,7 +21,7 @@ public enum SkillDecloration {
     }
 
     public int maxLevel() {
-        return skill.maxLevel();
+        return skill.getMaxLevel();
     }
 
 

@@ -1,6 +1,7 @@
 package me.s0ftbytes.skyblock.Events.PlayerEvents;
 
 import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
+import me.s0ftbytes.skyblock.Skills.SkillDecloration;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -29,7 +30,9 @@ public class SkyblockPlayerAttackEvent extends SkyblockPlayerEvent {
     }
 
     public void setDamage(Double damage) {
-        bukkitEvent.setDamage(damage);
+        double damageIncrease = (getPlayer().getSkill(SkillDecloration.COMBAT).getNonPermanentBoostAmount(getPlayer()).doubleValue() / 100);
+
+        bukkitEvent.setDamage(damage * (1 + damageIncrease));
     }
 
     public ItemStack getWeapon() {

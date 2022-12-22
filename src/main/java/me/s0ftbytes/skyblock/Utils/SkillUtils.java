@@ -20,6 +20,8 @@ public class SkillUtils {
 
             for (int i = 0; i < defaultMaxLevel; i++) {
                 config.set(skill.getID() + ".levels." + (i + 1) + ".required-xp", 0);
+                config.set(skill.getID() + ".levels." + (i + 1) + ".boost", 0);
+                config.set(skill.getID() + ".levels." + (i + 1) + ".stat-boost", 0);
             }
 
             skillsConfig.save();
@@ -49,7 +51,7 @@ public class SkillUtils {
         FileConfiguration playerConfig = player.getDataFile().getConfig();
 
         int currentLevel = playerConfig.getInt("skills." + skill.getID() + ".level");
-        int maxLevel = skill.maxLevel();
+        int maxLevel = skill.getMaxLevel();
 
         if(currentLevel >= maxLevel) return;
 
@@ -82,7 +84,7 @@ public class SkillUtils {
         FileConfiguration playerConfig = player.getDataFile().getConfig();
 
         int currentLevel = getSkillLevel(skill, player);
-        int maxLevel = skill.maxLevel();
+        int maxLevel = skill.getMaxLevel();
 
         if(currentLevel >= maxLevel) return;
 
@@ -94,7 +96,7 @@ public class SkillUtils {
 
     public static int getRemainingXPToLevelUp(Skill skill, SkyblockPlayer player) {
         int currentLevel = getSkillLevel(skill, player);
-        int maxLevel = skill.maxLevel();
+        int maxLevel = skill.getMaxLevel();
 
         if(currentLevel >= maxLevel) return 0;
 
@@ -104,5 +106,21 @@ public class SkillUtils {
         return requiredXP - currentXP;
     }
 
+    public static double getBoostForLevel(Skill skill, int level) {
+        ConfigurationFile skillsConfig = ConfigurationDeclaration.SKILLS.getFile();
+        FileConfiguration config = skillsConfig.getConfig();
+
+        createInitialSkillConfigData(skill);
+        return config.getDouble(skill.getID() + ".levels." + level + ".boost");
+    }
+
+
+    public static double getStatBoostForLevel(Skill skill, int level) {
+        ConfigurationFile skillsConfig = ConfigurationDeclaration.SKILLS.getFile();
+        FileConfiguration config = skillsConfig.getConfig();
+
+        createInitialSkillConfigData(skill);
+        return config.getDouble(skill.getID() + ".levels." + level + ".stat-boost");
+    }
 
 }

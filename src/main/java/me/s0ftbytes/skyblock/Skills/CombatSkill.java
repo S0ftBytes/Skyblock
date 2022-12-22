@@ -25,7 +25,36 @@ public class CombatSkill implements Skill {
     }
 
     @Override
-    public int maxLevel() {
+    public int getLevel(SkyblockPlayer player) {
+        return SkillUtils.getSkillLevel(this, player);
+    }
+
+    @Override
+    public String getBoostedStatID() {
+        return "critical_chance";
+    }
+
+    @Override
+    public Number getBoostedStatAmount(SkyblockPlayer player) {
+        int level = getLevel(player);
+
+        return SkillUtils.getStatBoostForLevel(this, level);
+    }
+
+    @Override
+    public String getNonPermanentBoostName() {
+        return "Warrior";
+    }
+
+    @Override
+    public Number getNonPermanentBoostAmount(SkyblockPlayer player) {
+        int level = getLevel(player);
+
+        return SkillUtils.getBoostForLevel(this, level);
+    }
+
+    @Override
+    public int getMaxLevel() {
         return SkillUtils.getSkillMaxLevel(this);
     }
 
