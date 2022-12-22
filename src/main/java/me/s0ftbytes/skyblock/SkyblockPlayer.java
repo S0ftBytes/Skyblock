@@ -7,6 +7,7 @@ import me.s0ftbytes.skyblock.Skills.Skill;
 import me.s0ftbytes.skyblock.Skills.SkillDecloration;
 import me.s0ftbytes.skyblock.Stats.Stat;
 import me.s0ftbytes.skyblock.Utils.PlayerUtils;
+import me.s0ftbytes.skyblock.Utils.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -47,7 +48,7 @@ public class SkyblockPlayer {
     }
 
     public void sendMessage(String message){
-        player.sendMessage(message);
+        player.sendMessage(StringUtils.format(message));
     }
 
     public void sendTitle(String title, String subtitle){

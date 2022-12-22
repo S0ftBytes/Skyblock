@@ -4,6 +4,7 @@ import me.lucko.helper.Events;
 import me.s0ftbytes.skyblock.Entities.EntityDecloration;
 import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityKilledEvent;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerSkillLevelUpEvent;
 import me.s0ftbytes.skyblock.Registries.EntityRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import me.s0ftbytes.skyblock.Utils.SkillUtils;

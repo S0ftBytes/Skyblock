@@ -1,6 +1,7 @@
 package me.s0ftbytes.skyblock.Events.Handlers;
 
 import me.lucko.helper.Events;
+import me.lucko.helper.Schedulers;
 import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerJoinEvent;
 import me.s0ftbytes.skyblock.Registries.EntityRegistry;
 import me.s0ftbytes.skyblock.Registries.StatRegistry;
@@ -19,7 +20,10 @@ public class HandlePlayerJoinEvent {
                     HashMap<String, Number> defaults = StatRegistry.getInstance().getStatDefaults();
                     e.getPlayer().setStats(defaults);
 
-                    EntityRegistry.getInstance().createEntityInstance("weak_zombie").spawn(e.getPlayer().getLocation());
+                    Schedulers.sync().runLater(() -> {
+                        EntityRegistry.getInstance().createEntityInstance("weak_zombie").spawn(e.getPlayer().getLocation());
+                    }, 20L);
+
                 });
     }
 }

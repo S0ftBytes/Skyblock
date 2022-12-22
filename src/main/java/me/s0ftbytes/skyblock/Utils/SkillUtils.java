@@ -2,6 +2,7 @@ package me.s0ftbytes.skyblock.Utils;
 
 import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationFile;
+import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerSkillLevelUpEvent;
 import me.s0ftbytes.skyblock.Skills.Skill;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -90,6 +91,9 @@ public class SkillUtils {
 
         playerConfig.set("skills." + skill.getID() + ".level", currentLevel + 1);
         if(remainingXP > 0) addSkillXP(skill, player, remainingXP);
+
+        SkyblockPlayerSkillLevelUpEvent levelUpEvent = new SkyblockPlayerSkillLevelUpEvent(player, skill, currentLevel + 1);
+        levelUpEvent.call();
 
         player.getDataFile().save();
     }
