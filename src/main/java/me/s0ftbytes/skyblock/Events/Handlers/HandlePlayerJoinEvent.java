@@ -19,7 +19,7 @@ public class HandlePlayerJoinEvent {
                     HashMap<String, Number> defaults = StatRegistry.getInstance().getStatDefaults();
                     e.getPlayer().setStats(defaults);
 
-                    EntityRegistry.getInstance().createEntityInstance("weak_zombie").spawn(e.getPlayer().location());
+                    EntityRegistry.getInstance().createEntityInstance("weak_zombie").spawn(e.getPlayer().getLocation());
                 });
     }
 }

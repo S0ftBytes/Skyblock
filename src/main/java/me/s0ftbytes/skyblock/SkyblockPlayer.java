@@ -1,7 +1,10 @@
 package me.s0ftbytes.skyblock;
 
+import me.s0ftbytes.skyblock.Configuration.PlayerDataFile;
 import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerStatUpdateEvent;
 import me.s0ftbytes.skyblock.Registries.StatRegistry;
+import me.s0ftbytes.skyblock.Skills.Skill;
+import me.s0ftbytes.skyblock.Skills.SkillDecloration;
 import me.s0ftbytes.skyblock.Stats.Stat;
 import me.s0ftbytes.skyblock.Utils.PlayerUtils;
 import org.bukkit.Location;
@@ -13,10 +16,14 @@ import java.util.UUID;
 public class SkyblockPlayer {
     private Player player;
     private HashMap<String, Number> stats;
+    private PlayerDataFile dataFile;
 
     public SkyblockPlayer(Player player){
         this.player = player;
         this.stats = new HashMap<>();
+
+        this.dataFile = new PlayerDataFile(this);
+        this.dataFile.load();
     }
 
     public Player getBukkitPlayer(){
@@ -91,8 +98,16 @@ public class SkyblockPlayer {
         return stats;
     }
 
-    public Location location() {
+    public Location getLocation() {
         return getBukkitPlayer().getLocation();
+    }
+
+    public PlayerDataFile getDataFile() {
+        return dataFile;
+    }
+
+    public Skill getSkill(SkillDecloration skillDecloration) {
+        return skillDecloration.getSkill();
     }
 
 }

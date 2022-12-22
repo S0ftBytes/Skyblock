@@ -20,7 +20,7 @@ public class HandleGenericEvents {
                 .handler(e -> {
                     double damage = e.getDamage();
 
-                    Location location = e.getPlayer().location().add(0, 2, 0);
+                    Location location = e.getPlayer().getLocation().add(0, 2, 0);
 
                     spawnDamageDisplay(location, StringUtils.createDamageString(damage, e.isCritical()));
                 });

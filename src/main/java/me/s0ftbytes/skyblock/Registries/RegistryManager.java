@@ -22,7 +22,6 @@ public class RegistryManager {
         statRegistry.registerStats();
         entityRegistry.registerEntities();
         skillRegistry.registerSkills();
-        skillRegistry.getSkill("combat").maxLevel();
     }
 
     public PlayerRegistry getPlayerRegistry() {

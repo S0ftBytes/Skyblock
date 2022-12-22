@@ -5,13 +5,16 @@ import me.s0ftbytes.skyblock.Entities.SkyblockEntity;
 import me.s0ftbytes.skyblock.Enums.DamageCause;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityDamageByPlayerEvent;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityDamageEvent;
+import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntityKilledEvent;
 import me.s0ftbytes.skyblock.Events.EntityEvents.SkyblockEntitySpawnEvent;
 import me.s0ftbytes.skyblock.Events.PlayerEvents.SkyblockPlayerAttackEvent;
 import me.s0ftbytes.skyblock.Registries.EntityRegistry;
+import me.s0ftbytes.skyblock.Registries.PlayerRegistry;
 import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 
 public class EntityEventFirers {
 
@@ -59,6 +62,16 @@ public class EntityEventFirers {
 
                     skyblockEntityAttackedEvent.call();
                     skyblockEntityDamageEvent.call();
+                });
+
+        Events.subscribe(EntityDeathEvent.class)
+                .filter(e -> e.getEntity().hasMetadata("skyblock_entity_id"))
+                .handler(e -> {
+                    SkyblockEntity entity = entityRegistry.getEntity(e.getEntity().getEntityId());
+                    SkyblockPlayer killer = PlayerRegistry.getInstance().getPlayer(e.getEntity().getKiller().getUniqueId());
+
+                    SkyblockEntityKilledEvent skyblockEntityKilledEvent = new SkyblockEntityKilledEvent(entity, killer, e.getEntity().getLocation());
+                    skyblockEntityKilledEvent.call();
                 });
     }
 

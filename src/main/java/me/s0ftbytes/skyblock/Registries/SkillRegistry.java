@@ -1,6 +1,8 @@
 package me.s0ftbytes.skyblock.Registries;
 
-import me.s0ftbytes.skyblock.Skills.*;
+import me.s0ftbytes.skyblock.Skills.CombatSkill;
+import me.s0ftbytes.skyblock.Skills.Skill;
+import me.s0ftbytes.skyblock.Skills.SkillDecloration;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,42 +11,41 @@ import java.util.List;
 
 public class SkillRegistry {
 
+    private HashMap<String, SkillDecloration> registeredSkills = new HashMap<>();
     private static SkillRegistry instance;
-    private HashMap<String, Skill> skills = new HashMap<>();
 
     public static SkillRegistry getInstance(){
-        if(instance == null) instance = new SkillRegistry();
+        if(instance == null)
+            instance = new SkillRegistry();
         return instance;
     }
 
-    public void registerSkills(){
-        List<Skill> skills = new ArrayList<>();
+    public void registerSkills() {
+        List<SkillDecloration> skills = new ArrayList<>();
         Collections.addAll(skills,
-                new CombatSkill()
+                SkillDecloration.COMBAT
         );
 
-        for(Skill skill : skills){
+        for(SkillDecloration skill : skills){
             registerSkill(skill);
         }
     }
 
-    public void registerSkill(Skill skill){
-        skills.put(skill.getID(), skill);
+    public void registerSkill(SkillDecloration skill){
+        registeredSkills.put(skill.getID(), skill);
     }
 
-    public void unregisterSkill(Skill skill){
-        skills.remove(skill.getID());
+    public void unregisterEntity(Skill skill){
+        registeredSkills.remove(skill.getID());
     }
 
-    public Skill getSkill(String id){
-        return skills.get(id);
+    public List<String> getRegisteredSkills() {
+        return new ArrayList<>(registeredSkills.keySet());
     }
 
-    public boolean isRegistered(String id){
-        return skills.containsKey(id);
+    public SkillDecloration getSkillDecloration(String id) {
+        return registeredSkills.get(id);
     }
 
-    public HashMap<String, Skill> getSkills(){
-        return skills;
-    }
+
 }

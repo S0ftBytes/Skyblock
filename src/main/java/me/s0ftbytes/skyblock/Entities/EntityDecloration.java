@@ -16,12 +16,14 @@ public enum EntityDecloration {
     final String id;
     final String name;
     final int level;
+    final int killXP;
     final HashMap<String, Number> stats;
-    EntityDecloration(Class <? extends SkyblockEntity> entityClass, String id, String name, int level, HashMap<String, Number> stats) {
+    EntityDecloration(Class <? extends SkyblockEntity> entityClass, String id, String name, int level, int killXP, HashMap<String, Number> stats) {
         this.entityClass = (Class<SkyblockEntity>) entityClass;
         this.id = id;
         this.name = name;
         this.level = level;
+        this.killXP = killXP;
         this.stats = stats;
 
         EntityUtils.createEntityConfigSection(id, name, level, stats);
@@ -43,13 +45,14 @@ public enum EntityDecloration {
         }
 
         this.level = confFile.getInt(id + ".level");
+        this.killXP = confFile.getInt(id + ".kill-xp");
         this.stats = stats;
     }
 
     public SkyblockEntity createEntityInstance() {
         SkyblockEntity entity;
         try {
-            entity = entityClass.getConstructor(String.class, String.class, int.class, HashMap.class).newInstance(name, name, level, stats);
+            entity = entityClass.getConstructor(String.class, String.class, int.class, HashMap.class).newInstance(id, name, level, stats);
         } catch (InvocationTargetException e) {
             throw new RuntimeException(e);
         } catch (InstantiationException e) {
@@ -80,6 +83,10 @@ public enum EntityDecloration {
 
     public Class<SkyblockEntity> getEntityClass(){
         return entityClass;
+    }
+
+    public int getKillXP(){
+        return killXP;
     }
 
 }

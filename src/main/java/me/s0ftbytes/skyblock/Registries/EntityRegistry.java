@@ -43,6 +43,10 @@ public class EntityRegistry {
         return new ArrayList<>(registeredEntities.keySet());
     }
 
+    public EntityDecloration getEntityDecloration(String id) {
+        return registeredEntities.get(id);
+    }
+
     public void addEntity(SkyblockEntity entity) {
         spawnedEntities.put(entity.getLivingEntity().getEntityId(), entity);
     }

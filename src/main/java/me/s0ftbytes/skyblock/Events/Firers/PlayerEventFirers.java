@@ -103,7 +103,7 @@ public class PlayerEventFirers implements Listener {
                     if(e.getNewHealth() < 0.5){
 
                         e.setCancelled(true);
-                        SkyblockPlayerDeathEvent deathEvent = new SkyblockPlayerDeathEvent(player, player.location());
+                        SkyblockPlayerDeathEvent deathEvent = new SkyblockPlayerDeathEvent(player, player.getLocation());
                         deathEvent.call();
                     }
 
@@ -116,7 +116,7 @@ public class PlayerEventFirers implements Listener {
                     if(e.getNewHealth() < 0.5){
                         e.setCancelled(true);
 
-                        SkyblockPlayerDeathEvent deathEvent = new SkyblockPlayerDeathEvent(player, player.location());
+                        SkyblockPlayerDeathEvent deathEvent = new SkyblockPlayerDeathEvent(player, player.getLocation());
                         deathEvent.call();
                     }
 

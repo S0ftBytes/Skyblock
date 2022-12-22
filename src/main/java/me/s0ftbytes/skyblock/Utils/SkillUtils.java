@@ -3,6 +3,7 @@ package me.s0ftbytes.skyblock.Utils;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationDeclaration;
 import me.s0ftbytes.skyblock.Configuration.ConfigurationFile;
 import me.s0ftbytes.skyblock.Skills.Skill;
+import me.s0ftbytes.skyblock.SkyblockPlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class SkillUtils {
@@ -41,4 +42,67 @@ public class SkillUtils {
         createInitialSkillConfigData(skill);
         return config.getInt(skill.getID() + ".levels." + level + ".required-xp");
     }
+
+    public static void addSkillXP(Skill skill, SkyblockPlayer player, int xp) {
+        if(xp <= 0) return;
+
+        FileConfiguration playerConfig = player.getDataFile().getConfig();
+
+        int currentLevel = playerConfig.getInt("skills." + skill.getID() + ".level");
+        int maxLevel = skill.maxLevel();
+
+        if(currentLevel >= maxLevel) return;
+
+        int currentXP = playerConfig.getInt("skills." + skill.getID() + ".xp");
+        int requiredXP = getSkillRequiredXP(skill, currentLevel + 1);
+
+        int newXP = currentXP + xp;
+        if(newXP >= requiredXP) {
+            levelUpSkill(skill, player, newXP - requiredXP);
+        } else {
+            playerConfig.set("skills." + skill.getID() + ".xp", newXP);
+            player.getDataFile().save();
+        }
+
+    }
+
+    public static int getSkillXP(Skill skill, SkyblockPlayer player){
+        FileConfiguration playerConfig = player.getDataFile().getConfig();
+
+        return playerConfig.getInt("skills." + skill.getID() + ".xp");
+    }
+
+    public static int getSkillLevel(Skill skill, SkyblockPlayer player){
+        FileConfiguration playerConfig = player.getDataFile().getConfig();
+
+        return playerConfig.getInt("skills." + skill.getID() + ".level");
+    }
+
+    public static void levelUpSkill(Skill skill, SkyblockPlayer player, int remainingXP) {
+        FileConfiguration playerConfig = player.getDataFile().getConfig();
+
+        int currentLevel = getSkillLevel(skill, player);
+        int maxLevel = skill.maxLevel();
+
+        if(currentLevel >= maxLevel) return;
+
+        playerConfig.set("skills." + skill.getID() + ".level", currentLevel + 1);
+        if(remainingXP > 0) addSkillXP(skill, player, remainingXP);
+
+        player.getDataFile().save();
+    }
+
+    public static int getRemainingXPToLevelUp(Skill skill, SkyblockPlayer player) {
+        int currentLevel = getSkillLevel(skill, player);
+        int maxLevel = skill.maxLevel();
+
+        if(currentLevel >= maxLevel) return 0;
+
+        int currentXP = getSkillXP(skill, player);
+        int requiredXP = getSkillRequiredXP(skill, currentLevel + 1);
+
+        return requiredXP - currentXP;
+    }
+
+
 }

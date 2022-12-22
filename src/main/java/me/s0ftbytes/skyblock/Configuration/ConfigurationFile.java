@@ -24,7 +24,6 @@ public class ConfigurationFile {
     public ConfigurationFile(String fileName, String folder){
         this.fileName = fileName + ".yml";
 
-        if(!dataFolder.exists()) dataFolder.mkdirs();
         dataFolder = new File(dataFolder.getAbsolutePath().substring(0, dataFolder.getAbsolutePath().lastIndexOf("/")) + "/" + folder);
         if(!dataFolder.exists()) dataFolder.mkdirs();
     }
@@ -49,6 +48,7 @@ public class ConfigurationFile {
 
     public FileConfiguration getConfig(){
         if(config == null) load();
+
         return config;
     }
 

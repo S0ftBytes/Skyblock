@@ -8,5 +8,7 @@ public interface Skill {
         int maxLevel();
         int getRequiredXP(int level);
         int getXPToNextLevel(SkyblockPlayer player);
+        void addXP(SkyblockPlayer player, int xp);
+        int getXP(SkyblockPlayer player);
         void registerHandlers();
 }
