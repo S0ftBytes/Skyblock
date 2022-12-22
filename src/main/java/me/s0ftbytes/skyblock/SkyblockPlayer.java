@@ -76,6 +76,17 @@ public class SkyblockPlayer {
         }
     }
 
+    public void increaseStat(String statID, Number increaseBy){
+        HashMap<String, Number> stats = getStats();
+        if(stats.containsKey(statID)){
+            Number value = stats.get(statID);
+            setStat(statID, value.doubleValue() + increaseBy.doubleValue());
+        } else {
+            setStat(statID, increaseBy);
+        }
+
+    }
+
     public void setStats(HashMap<String, Number> stats){
         for(String statID : stats.keySet()){
             setStat(statID, stats.get(statID));

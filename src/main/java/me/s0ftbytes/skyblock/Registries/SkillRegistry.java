@@ -1,6 +1,5 @@
 package me.s0ftbytes.skyblock.Registries;
 
-import me.s0ftbytes.skyblock.Skills.CombatSkill;
 import me.s0ftbytes.skyblock.Skills.Skill;
 import me.s0ftbytes.skyblock.Skills.SkillDecloration;
 
@@ -41,6 +40,10 @@ public class SkillRegistry {
 
     public List<String> getRegisteredSkills() {
         return new ArrayList<>(registeredSkills.keySet());
+    }
+
+    public List<SkillDecloration> getRegisteredSkillDeclarations() {
+        return new ArrayList<>(registeredSkills.values());
     }
 
     public SkillDecloration getSkillDecloration(String id) {
